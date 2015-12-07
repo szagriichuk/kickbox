@@ -24,7 +24,7 @@ public final class HttpExecutor {
         try {
             HttpResponse response = httpClient.execute(method);
             checkIfStatusIsSuccess(response);
-            return deserialize(EntityUtils.toString(response.getEntity()), KickBoxResponse.class);
+            return deserialize(entityToString(response), KickBoxResponse.class);
         } catch (IOException e) {
             throw new HttpException("The operation cannot be executed.", e);
         }
@@ -32,7 +32,15 @@ public final class HttpExecutor {
 
     private static void checkIfStatusIsSuccess(HttpResponse result) {
         if (result.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-            throw new HttpException(result.getStatusLine().getReasonPhrase());
+            throw new HttpException(entityToString(result));
+        }
+    }
+
+    private static String entityToString(HttpResponse result) {
+        try {
+            return EntityUtils.toString(result.getEntity());
+        } catch (IOException e) {
+            throw new HttpException(e.getMessage());
         }
     }
 }
