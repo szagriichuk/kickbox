@@ -24,7 +24,7 @@ public final class HttpExecutor {
         try {
             HttpResponse response = httpClient.execute(method);
             return deserialize(entityToString(response), ExtendedKickBoxResponse.class);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             return new ExtendedKickBoxResponse() {{
                 message = e.getMessage();
                 code = HttpStatus.SC_NOT_FOUND;
