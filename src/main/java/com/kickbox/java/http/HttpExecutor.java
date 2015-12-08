@@ -1,6 +1,6 @@
 package com.kickbox.java.http;
 
-import com.kickbox.java.model.KickBoxResponse;
+import com.kickbox.java.model.ExtendedKickBoxResponse;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -20,19 +20,15 @@ import static com.kickbox.java.serialize.Serializer.deserialize;
 public final class HttpExecutor {
     private static CloseableHttpClient httpClient = HttpClients.createDefault();
 
-    public static KickBoxResponse execute(HttpRequestBase method) {
+    public static ExtendedKickBoxResponse execute(HttpRequestBase method) {
         try {
             HttpResponse response = httpClient.execute(method);
-            checkIfStatusIsSuccess(response);
-            return deserialize(entityToString(response), KickBoxResponse.class);
+            return deserialize(entityToString(response), ExtendedKickBoxResponse.class);
         } catch (IOException e) {
-            throw new HttpException("The operation cannot be executed.", e);
-        }
-    }
-
-    private static void checkIfStatusIsSuccess(HttpResponse result) {
-        if (result.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-            throw new HttpException(entityToString(result));
+            return new ExtendedKickBoxResponse() {{
+                message = e.getMessage();
+                code = HttpStatus.SC_NOT_FOUND;
+            }};
         }
     }
 

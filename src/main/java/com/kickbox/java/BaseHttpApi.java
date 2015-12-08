@@ -4,7 +4,7 @@ import com.kickbox.java.http.Headers;
 import com.kickbox.java.http.HttpMethod;
 import com.kickbox.java.http.params.ApiKey;
 import com.kickbox.java.http.params.Param;
-import com.kickbox.java.model.KickBoxResponse;
+import com.kickbox.java.model.ExtendedKickBoxResponse;
 import org.apache.http.Header;
 import org.apache.http.client.methods.HttpRequestBase;
 
@@ -52,11 +52,11 @@ abstract class BaseHttpApi extends Key {
         }
     }
 
-    KickBoxResponse get(String url, Param<?>... params) {
+    ExtendedKickBoxResponse get(String url, Param<?>... params) {
         return get(url, Headers.create(), params);
     }
 
-    KickBoxResponse get(String url, List<Header> headers, Param<?>... params) {
+    ExtendedKickBoxResponse get(String url, List<Header> headers, Param<?>... params) {
         return execute(createGetRequestWithHeader(createUrlWithParams(url + "?", createRequestString("&", new ApiKey(key), params)), headers));
     }
 

@@ -3,6 +3,7 @@ package com.kickbox.java;
 import com.kickbox.java.http.params.Email;
 import com.kickbox.java.http.params.Timeout;
 import com.kickbox.java.http.url.Url;
+import com.kickbox.java.model.ExtendedKickBoxResponse;
 import com.kickbox.java.model.KickBoxResponse;
 import com.kickbox.java.model.Result;
 
@@ -39,10 +40,10 @@ public class KickBoxApi extends BaseHttpApi {
     }
 
     /**
-     * Verifies the input {@code email} and returns new instance of {@link KickBoxResponse} which contains
+     * Verifies the input {@code email} and returns new instance of {@link ExtendedKickBoxResponse} which contains
      * full description of the verification.
      */
-    public KickBoxResponse verifyWithResponse(String email) {
+    public ExtendedKickBoxResponse verifyWithResponse(String email) {
         return verifyWithResponse(email, null);
     }
 
@@ -54,8 +55,8 @@ public class KickBoxApi extends BaseHttpApi {
      * The {@code timeout} is maximum time, in milliseconds, for the API to complete a verification request.
      * If it is {@code null} will be used default value is 6000 ms.
      */
-    public KickBoxResponse verifyWithResponse(String email, Long timeout) {
-        KickBoxResponse response;
+    public ExtendedKickBoxResponse verifyWithResponse(String email, Long timeout) {
+        ExtendedKickBoxResponse response;
         if (timeout != null) {
             response = get(Url.verifyV2().build(), new Email(email), new Timeout(timeout));
         } else {

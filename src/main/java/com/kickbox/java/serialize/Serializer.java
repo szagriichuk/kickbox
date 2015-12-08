@@ -15,14 +15,14 @@ public class Serializer {
 
     public static <T> T deserialize(String data, Class<T> clazz) {
         try {
-            setUpMapperViibility();
+            setUpMapperVisibility();
             return mapper.readValue(data, clazz);
         } catch (IOException e) {
             throw new SerializerException(e);
         }
     }
 
-    private static void setUpMapperViibility() {
+    private static void setUpMapperVisibility() {
         mapper.setVisibility(mapper.getSerializationConfig().getDefaultVisibilityChecker()
                 .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
                 .withGetterVisibility(JsonAutoDetect.Visibility.ANY)

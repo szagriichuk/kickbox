@@ -1,5 +1,6 @@
 package com.kickbox.java;
 
+import com.kickbox.java.model.KickBoxResponse;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,8 +12,8 @@ public class KickBoxApiTest {
     @Test
     public void testVerifyInvalidEmail() throws Exception {
         KickBoxApi kickBoxApi = new KickBoxApi("KEY");
-        boolean valid = kickBoxApi.verify("test@test.com");
-        Assert.assertFalse(valid);
+        KickBoxResponse valid = kickBoxApi.verifyWithResponse("test@test.com");
+        Assert.assertFalse(valid.success);
     }
 
     @Test
