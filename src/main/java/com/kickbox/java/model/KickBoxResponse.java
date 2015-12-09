@@ -19,4 +19,22 @@ public class KickBoxResponse {
     public String user;
     public String domain;
     public boolean success;
+
+    @Override
+    public String toString() {
+        return "KickBoxResponse{" +
+                "result='" + result + '\'' +
+                ", reason='" + reason + '\'' +
+                ", role=" + role +
+                ", free=" + free +
+                ", disposable=" + disposable +
+                ", accept_all=" + accept_all +
+                ", did_you_mean='" + did_you_mean + '\'' +
+                ", sendex=" + sendex +
+                ", email='" + email + '\'' +
+                ", user='" + user + '\'' +
+                ", domain='" + domain + '\'' +
+                ", success=" + success +
+                '}';
+    }
 }
