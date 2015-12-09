@@ -23,13 +23,18 @@ public final class HttpExecutor {
     public static ExtendedKickBoxResponse execute(HttpRequestBase method) {
         try {
             HttpResponse response = httpClient.execute(method);
-            return deserialize(entityToString(response), ExtendedKickBoxResponse.class);
+            return assignCode(deserialize(entityToString(response), ExtendedKickBoxResponse.class), response);
         } catch (final IOException e) {
             return new ExtendedKickBoxResponse() {{
                 message = e.getMessage();
                 code = HttpStatus.SC_NOT_FOUND;
             }};
         }
+    }
+
+    private static ExtendedKickBoxResponse assignCode(ExtendedKickBoxResponse boxResponse, HttpResponse response) {
+        boxResponse.code = response.getStatusLine().getStatusCode();
+        return boxResponse;
     }
 
     private static String entityToString(HttpResponse result) {
