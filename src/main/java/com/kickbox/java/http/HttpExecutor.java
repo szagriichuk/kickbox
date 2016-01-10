@@ -3,6 +3,7 @@ package com.kickbox.java.http;
 import com.kickbox.java.model.ExtendedKickBoxResponse;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -21,14 +22,23 @@ public final class HttpExecutor {
     private static CloseableHttpClient httpClient = HttpClients.createDefault();
 
     public static ExtendedKickBoxResponse execute(HttpRequestBase method) {
+        CloseableHttpResponse response = null;
         try {
-            HttpResponse response = httpClient.execute(method);
+            response = httpClient.execute(method);
             return assignCode(deserialize(entityToString(response), ExtendedKickBoxResponse.class), response);
         } catch (final IOException e) {
             return new ExtendedKickBoxResponse() {{
                 message = e.getMessage();
                 code = HttpStatus.SC_NOT_FOUND;
             }};
+        } finally {
+            try {
+                if (response != null) {
+                    response.close();
+                }
+            } catch (IOException e) {
+                // do nothing
+            }
         }
     }
 
