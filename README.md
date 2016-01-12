@@ -38,11 +38,11 @@ Where KickBoxResponse is response structure:
 
 # Build for Java application
  
- ```gradle clean test jar``` or ```gradle -Pprofile=none clean jar``` 
+ ```gradle clean test jar``` or ```gradle -Pprofile=none clean test jar``` 
 
 # Build for Android application
  
- ```gradle -Pprofile=android clean jar```
+ ```gradle -Pprofile=android clean test jar```
 
 
 
