@@ -7,15 +7,15 @@ The Java API for the <a href="http://docs.kickbox.io/docs/using-the-api">Kickbox
 Simple validate:
 
 ```
-         KickBoxApi kickBoxApi = new KickBoxApi("KEY");
-         boolean valid = kickBoxApi.verify("your_email@gmail.com");
+ KickBoxApi kickBoxApi = new KickBoxApi("KEY");
+ boolean valid = kickBoxApi.verify("your_email@gmail.com");
 ```
 
 Validate with response:
 
 ```
-         KickBoxApi kickBoxApi = new KickBoxApi("KEY");
-         KickBoxResponse response = kickBoxApi.verifyWithResponse("your_email@gmail.com");
+ KickBoxApi kickBoxApi = new KickBoxApi("KEY");
+ KickBoxResponse response = kickBoxApi.verifyWithResponse("your_email@gmail.com");
 ```
 Where KickBoxResponse is response structure:
  
@@ -43,6 +43,6 @@ Where KickBoxResponse is response structure:
 # Build for Android application
  
  ```gradle -Pprofile=android clean jar```
-Update 
+
 
 
