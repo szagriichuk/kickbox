@@ -2,16 +2,20 @@ apply plugin: 'java'
 
 jar.version = '0.1.2'
 sourceCompatibility = 1.7
-targetCompatibility=1.7
+targetCompatibility = 1.7
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.12'
     compile 'org.slf4j:slf4j-log4j12:1.7.12'
-    compile 'org.apache.httpcomponents:httpasyncclient:4.1'
+    if (project.hasProperty('profile') && profile == 'android') {
+        compile 'cz.msebera.android:httpclient:4.4.1.1'
+    } else {
+        compile 'org.apache.httpcomponents:httpclient:4.4.1'
+    }
     compile 'org.apache.httpcomponents:httpmime:4.4.1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.6.0'
     testCompile 'junit:junit:4.12'
